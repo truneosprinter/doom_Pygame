@@ -52,6 +52,8 @@ class RayCasting:
             else:
                 depth = depth_hor
 
+            depth *= math.cos(self.game.player.angle - ray_angle)
+
             #debug only
             #pg.draw.line(
             #    self.game.screen, 
@@ -65,9 +67,10 @@ class RayCasting:
 
             proj_height = SCREEN_DIST / (depth + 0.0001)
 
+            colour = [155 / (1 + depth ** 5 * 0.00002)] * 3
             pg.draw.rect(
                 self.game.screen,
-                "white",
+                colour,
                 (ray * SCALE, HALF_HEIGHT - proj_height // 2, SCALE, proj_height)
                 )
 
